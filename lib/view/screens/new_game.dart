@@ -1,3 +1,4 @@
+import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/Game.dart';
 import 'package:dominote/model/User.dart';
 import 'package:dominote/view/common_components/my_primary_button.dart';
@@ -48,74 +49,87 @@ class _NewGamestate extends State<NewGame> {
           ],
         ));
       }
-    } else {
-      playersListWidget.add(TableRow(children: [Text("No players added.")]));
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Game"),
+        title: Text(Language.getStrings("NewGame")),
         centerTitle: true,
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 30,
-                ),
-                Text(
-                  "Players",
-                  style: Theme.of(context).textTheme.headline,
-                ),
-                Container(
-                  height: 30,
-                ),
-                Container(
-                  child: Row(
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 20,
+            ),
+            Text(
+              Language.getStrings("Players"),
+              style: Theme.of(context).textTheme.headline,
+            ),
+            Container(
+              height: 20,
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    height: 80,
+                    child: MyTextField(
+                        hint: Language.getStrings("EnterPlayerName"),
+                        label: Language.getStrings("Name"),
+                        controller: textNameController),
+                  ),
+                  MyPrimaryButton(
+                    child: Text(Language.getStrings("Add")),
+                    color: Theme.of(context).buttonColor,
+                    action: () {
+                      if (textNameController.text.length > 2 &&
+                          players.length < 7) {
+                        SnackBar(
+                          duration: Duration(seconds: 3),
+                          content: Text(Language.getStrings("PlayerAdded")),
+                          backgroundColor: Colors.green,
+                        );
+                        setState(() {
+                          players.add(User(name: textNameController.text));
+                        });
+                        textNameController.text = "";
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  Column(
                     children: <Widget>[
-                      SizedBox(
-                        width: 200,
-                        height: 80,
-                        child: MyTextField(
-                            hint: "Enter player name",
-                            label: "Name",
-                            controller: textNameController),
-                      ),
-                      MyPrimaryButton(
-                        child: Text("Add"),
-                        color: Theme.of(context).colorScheme.primary,
-                        action: () {
-                          if (textNameController.text.length > 2) {
-                            setState(() {
-                              players.add(User(name: textNameController.text));
-                            });
-                            textNameController.text = "";
-                          }
-                        },
+                      Container(
+                        child: playersListWidget.length > 0
+                            ? Table(
+                                defaultVerticalAlignment:
+                                    TableCellVerticalAlignment.middle,
+                                columnWidths: {
+                                  0: FixedColumnWidth(20),
+                                  2: FixedColumnWidth(60)
+                                },
+                                children: playersListWidget)
+                            : Text(Language.getStrings("NoPlayersAdded")),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  height: 30,
-                ),
-                Container(
-                  width: 300,
-                  child: Table(
-                      defaultVerticalAlignment:
-                          TableCellVerticalAlignment.middle,
-                      columnWidths: {
-                        0: FixedColumnWidth(20),
-                        2: FixedColumnWidth(60)
-                      },
-                      children: playersListWidget),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
