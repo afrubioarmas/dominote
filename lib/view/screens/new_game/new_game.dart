@@ -1,22 +1,30 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/Game.dart';
-import 'package:dominote/model/User.dart';
+import 'package:dominote/model/Player.dart';
 import 'package:dominote/view/common_components/my_flushbar_helper.dart';
 import 'package:dominote/view/common_components/my_primary_button.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:dominote/view/screens/game_widget/game_widget_bloc_provider.dart';
 import 'package:dominote/view/common_components/my_text_field.dart';
-import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class NewGame extends StatefulWidget {
-  _NewGamestate createState() => _NewGamestate();
+  _NewGameState createState() => _NewGameState();
 }
 
-class _NewGamestate extends State<NewGame> {
+class _NewGameState extends State<NewGame> {
   TextEditingController textNameController = TextEditingController();
   Game newGame;
-  List<User> players = List<User>();
+  List<Player> players = List<Player>();
+
+  @override
+  void initState() {
+    super.initState();
+    players.add(Player(name: "Andres"));
+    players.add(Player(name: "Oscar"));
+    players.add(Player(name: "Dani"));
+    players.add(Player(name: "Felo"));
+  }
+
   @override
   Widget build(BuildContext context) {
     var playersListWidget = List<TableRow>();
@@ -92,7 +100,7 @@ class _NewGamestate extends State<NewGame> {
                       if (textNameController.text.length > 2) {
                         if (players.length < 7) {
                           setState(() {
-                            players.add(User(name: textNameController.text));
+                            players.add(Player(name: textNameController.text));
                           });
                           MyFlushbarHelper.showSuccess(
                               Language.getStrings("PlayerAdded") +
@@ -142,7 +150,13 @@ class _NewGamestate extends State<NewGame> {
                       players.length > 3
                           ? MyPrimaryButton(
                               color: Theme.of(context).buttonColor,
-                              child: Text(Language.getStrings("StartGame")))
+                              child: Text(Language.getStrings("StartGame")),
+                              action: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        GameWidgetBlocProvider(Game(players))));
+                              },
+                            )
                           : Container(),
                     ],
                   )

@@ -10,5 +10,6 @@
     "Success": "Success",
     "CantAddMoreThan7Players": "Can't add more than 7 players",
     "PlayersNameCantBeLess2Characters": "Players name can't be less than 2 characters",
-    "StartGame": "Start Game"
+    "StartGame": "Start Game",
+    "Scoreboard": "Scoreboard"
 }

@@ -1,4 +1,4 @@
-import 'package:dominote/view/screens/new_game.dart';
+import 'package:dominote/view/screens/new_game/new_game.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

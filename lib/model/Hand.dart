@@ -1,7 +1,7 @@
-import 'package:dominote/model/User.dart';
+import 'package:dominote/model/Player.dart';
 
 class Hand {
-  List<User> players = List();
+  List<Player> players = List();
   int scoreTeam1;
   int scoreTeam2;
   int scoreToWin;

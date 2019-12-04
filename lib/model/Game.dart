@@ -1,10 +1,12 @@
 import 'package:dominote/model/Hand.dart';
 
-import 'User.dart';
+import 'Player.dart';
 
 class Game {
   List<Hand> hands = List();
-  List<User> players = List();
+  List<Player> players = List();
 
-  Game({this.hands, this.players});
+  Game(List<Player> players) {
+    this.players = players;
+  }
 }

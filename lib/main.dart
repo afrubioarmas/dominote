@@ -1,4 +1,4 @@
-import 'package:dominote/view/screens/splashscreen.dart';
+import 'package:dominote/view/screens/splashscreen/splashscreen.dart';
 import 'package:dominote/view/theme.dart';
 import 'package:flutter/material.dart';
 
