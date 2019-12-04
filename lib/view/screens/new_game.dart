@@ -1,8 +1,11 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/Game.dart';
 import 'package:dominote/model/User.dart';
+import 'package:dominote/view/common_components/my_flushbar_helper.dart';
 import 'package:dominote/view/common_components/my_primary_button.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:dominote/view/common_components/my_text_field.dart';
+import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -86,17 +89,27 @@ class _NewGamestate extends State<NewGame> {
                     child: Text(Language.getStrings("Add")),
                     color: Theme.of(context).buttonColor,
                     action: () {
-                      if (textNameController.text.length > 2 &&
-                          players.length < 7) {
-                        SnackBar(
-                          duration: Duration(seconds: 3),
-                          content: Text(Language.getStrings("PlayerAdded")),
-                          backgroundColor: Colors.green,
-                        );
-                        setState(() {
-                          players.add(User(name: textNameController.text));
-                        });
-                        textNameController.text = "";
+                      if (textNameController.text.length > 2) {
+                        if (players.length < 7) {
+                          setState(() {
+                            players.add(User(name: textNameController.text));
+                          });
+                          MyFlushbarHelper.showSuccess(
+                              Language.getStrings("PlayerAdded") +
+                                  ": " +
+                                  textNameController.text,
+                              context);
+                          textNameController.text = "";
+                        } else {
+                          MyFlushbarHelper.showError(
+                              Language.getStrings("CantAddMoreThan7Players"),
+                              context);
+                        }
+                      } else {
+                        MyFlushbarHelper.showError(
+                            Language.getStrings(
+                                "PlayersNameCantBeLess2Characters"),
+                            context);
                       }
                     },
                   ),
@@ -123,6 +136,14 @@ class _NewGamestate extends State<NewGame> {
                                 children: playersListWidget)
                             : Text(Language.getStrings("NoPlayersAdded")),
                       ),
+                      Container(
+                        height: 20,
+                      ),
+                      players.length > 3
+                          ? MyPrimaryButton(
+                              color: Theme.of(context).buttonColor,
+                              child: Text(Language.getStrings("StartGame")))
+                          : Container(),
                     ],
                   )
                 ],

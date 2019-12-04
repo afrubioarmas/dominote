@@ -5,5 +5,10 @@
     "Add": "Add",
     "NewGame": "New Game",
     "NoPlayersAdded": "No Players Added",
-    "PlayerAdded": "Player Added"
+    "PlayerAdded": "Player Added",
+    "Error": "Error",
+    "Success": "Success",
+    "CantAddMoreThan7Players": "Can't add more than 7 players",
+    "PlayersNameCantBeLess2Characters": "Players name can't be less than 2 characters",
+    "StartGame": "Start Game"
 }

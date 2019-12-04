@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyPrimaryButton extends StatelessWidget {
-  final Widget child;
-  final Color color;
-  final Function action;
+  Widget child;
+  Color color;
+  Function action;
 
   MyPrimaryButton({this.child, this.color, this.action});
   @override
@@ -11,7 +11,7 @@ class MyPrimaryButton extends StatelessWidget {
     return RaisedButton(
       child: child,
       color: color,
-      onPressed: action,
+      onPressed: action == null ? () {} : action,
     );
   }
 }
