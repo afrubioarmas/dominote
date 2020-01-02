@@ -47,6 +47,8 @@ class _GameState extends State<GameWidget> {
                         if (snapshot.data == null)
                           return CupertinoActivityIndicator();
                         return Table(
+                          border: TableBorder.all(
+                              color: Theme.of(context).buttonColor),
                           defaultVerticalAlignment:
                               TableCellVerticalAlignment.middle,
                           children: buildScoreboard(snapshot.data),
