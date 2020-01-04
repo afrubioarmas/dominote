@@ -1,7 +1,6 @@
 import 'package:dominote/controller/blocs/bloc_base.dart';
 import 'package:dominote/controller/blocs/game_bloc.dart';
 import 'package:dominote/model/Game.dart';
-import 'package:dominote/model/Player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
