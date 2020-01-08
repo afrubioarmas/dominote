@@ -67,7 +67,23 @@ class _GameState extends State<GameWidget> {
                     alignment: WrapAlignment.center,
                     spacing: 20,
                     runSpacing: 20,
-                    children: <Widget>[Tgame(), Tgame(), Tgame(), Tgame()],
+                    children: <Widget>[
+                      Tgame(
+                        height: 20,
+                        team1: "1 - 2",
+                        team2: "3 - 4",
+                      ),
+                      Tgame(
+                        height: 20,
+                        team1: "1 - 3",
+                        team2: "2 - 4",
+                      ),
+                      Tgame(
+                        height: 20,
+                        team1: "1 - 4",
+                        team2: "2 - 3",
+                      )
+                    ],
                   ),
                 )
               ],
