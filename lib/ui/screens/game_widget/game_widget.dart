@@ -1,11 +1,9 @@
-import 'package:dominote/controller/blocs/bloc_base.dart';
-import 'package:dominote/controller/blocs/game_bloc.dart';
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/Game.dart';
-import 'package:dominote/view/screens/game_widget/components/t_game.dart';
+import 'package:dominote/model/Player.dart';
+import 'package:dominote/ui/screens/game_widget/components/t_game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'components/scoreboard.dart';
 
 class GameWidget extends StatefulWidget {
@@ -13,15 +11,25 @@ class GameWidget extends StatefulWidget {
 }
 
 class _GameState extends State<GameWidget> {
-  GameBloc bloc;
-  @override
-  void initState() {
-    super.initState();
-    bloc = BlocProvider.of<GameBloc>(context);
-  }
 
+  List<Player> players = [
+    Player(name: "Andres"),
+    Player(name: "Juan"),
+    Player(name: "Oscar"),
+    Player(name: "Pedro")
+    ];
+  
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> playersLegend = List<Widget>();
+    
+    for (int i = 0; i < players.length; i++) {
+      playersLegend.add(Text(
+          (i + 1).toString() + ": " + players[i].name,
+          style: Theme.of(context).textTheme.subtitle));
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -30,19 +38,8 @@ class _GameState extends State<GameWidget> {
             style: Theme.of(context).textTheme.title),
         centerTitle: true,
       ),
-      body: StreamBuilder<Game>(
-        stream: bloc.outGameData,
-        builder: (BuildContext context, AsyncSnapshot<Game> snapshot) {
-          if (snapshot.data == null) return CupertinoActivityIndicator();
-
-          List<Widget> playersLegend = List<Widget>();
-          for (int i = 0; i < snapshot.data.players.length; i++) {
-            playersLegend.add(Text(
-                (i + 1).toString() + ": " + snapshot.data.players[i].name,
-                style: Theme.of(context).textTheme.subtitle));
-          }
-
-          return Container(
+      body:
+        Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: <Widget>[
@@ -55,7 +52,7 @@ class _GameState extends State<GameWidget> {
                     Container(
                       height: 20,
                     ),
-                    Scoreboard(game: snapshot.data),
+                    Scoreboard(game: Game(players)),
                   ],
                 ),
                 Container(
@@ -88,9 +85,9 @@ class _GameState extends State<GameWidget> {
                 )
               ],
             ),
-          );
-        },
-      ),
+          )
+       
+      
     );
   }
 }

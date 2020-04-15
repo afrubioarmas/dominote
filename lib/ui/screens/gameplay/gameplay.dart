@@ -1,6 +1,5 @@
-import 'package:dominote/controller/helpers/language.dart';
-import 'package:dominote/view/screens/game_widget/components/t_game.dart';
-import 'package:dominote/view/screens/gameplay/add_match.dart';
+import 'package:dominote/ui/screens/game_widget/components/t_game.dart';
+import 'package:dominote/ui/screens/gameplay/add_match.dart';
 import 'package:flutter/material.dart';
 
 class Gameplay extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:dominote/controller/helpers/language.dart';
-import 'package:dominote/view/common_components/my_primary_button.dart';
+import 'package:dominote/ui/common_components/my_primary_button.dart';
 import 'package:flutter/material.dart';
 
 class AddMatch extends StatefulWidget {

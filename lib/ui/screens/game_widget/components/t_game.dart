@@ -1,4 +1,4 @@
-import 'package:dominote/view/screens/gameplay/gameplay.dart';
+import 'package:dominote/ui/screens/gameplay/gameplay.dart';
 import 'package:flutter/material.dart';
 
 class Tgame extends StatelessWidget {

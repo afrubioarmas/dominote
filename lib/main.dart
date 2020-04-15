@@ -1,5 +1,5 @@
-import 'package:dominote/view/screens/splashscreen/splashscreen.dart';
-import 'package:dominote/view/theme.dart';
+import 'package:dominote/ui/screens/splashscreen/splashscreen.dart';
+import 'package:dominote/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/helpers/language.dart';

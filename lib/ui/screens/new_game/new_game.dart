@@ -1,10 +1,10 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/Game.dart';
 import 'package:dominote/model/Player.dart';
-import 'package:dominote/view/common_components/my_flushbar_helper.dart';
-import 'package:dominote/view/common_components/my_primary_button.dart';
-import 'package:dominote/view/screens/game_widget/game_widget_bloc_provider.dart';
-import 'package:dominote/view/common_components/my_text_field.dart';
+import 'package:dominote/ui/common_components/my_flushbar_helper.dart';
+import 'package:dominote/ui/common_components/my_primary_button.dart';
+import 'package:dominote/ui/common_components/my_text_field.dart';
+import 'package:dominote/ui/screens/game_widget/game_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewGame extends StatefulWidget {
@@ -154,7 +154,8 @@ class _NewGameState extends State<NewGame> {
                               action: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        GameWidgetBlocProvider(Game(players))));
+                                        GameWidget()
+                                        ));
                               },
                             )
                           : Container(),
