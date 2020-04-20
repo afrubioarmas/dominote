@@ -10,14 +10,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  AppNavigator _navigator;
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+    _navigator = locator<AppNavigator>();
     loadData();
   }
 
@@ -25,7 +22,7 @@ class SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(seconds: 5))
         .then((onValue) {})
         .catchError((onError) {});
-    locator<AppNavigator>().navigateToNewGame();
+    _navigator.navigateToNewGame(clearStack: true);
   }
 
   @override

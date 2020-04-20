@@ -3,6 +3,8 @@ import 'package:dominote/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/helpers/language.dart';
+import 'controller/misc/service_locator.dart';
+import 'controller/navigation/app_navigator.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,6 +14,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Dominote',
         theme: darkTheme,
+        navigatorKey: locator<AppNavigator>().navigatorKey,
+        onGenerateRoute: locator<AppNavigator>().onGenerateRoute,
         home: SplashScreen());
   }
 }

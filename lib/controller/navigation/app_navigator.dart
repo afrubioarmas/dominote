@@ -8,8 +8,8 @@ import 'app_routes.dart';
 class AppNavigator {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  Future<void> navigateToNewGame() {
-    return _pushRoute(AppRoutes.new_game);
+  Future<void> navigateToNewGame({bool clearStack}) {
+    return _pushRoute(AppRoutes.new_game, clearStack: clearStack);
   }
 
   Future<void> navigateToGame(Game game) {
