@@ -10,7 +10,6 @@ class Gameplay extends StatefulWidget {
 class _GameplayState extends State<Gameplay> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

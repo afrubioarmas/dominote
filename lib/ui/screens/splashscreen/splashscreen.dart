@@ -1,4 +1,5 @@
-import 'package:dominote/ui/screens/new_game/new_game.dart';
+import 'package:dominote/controller/misc/service_locator.dart';
+import 'package:dominote/controller/navigation/app_navigator.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,8 +25,7 @@ class SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(seconds: 5))
         .then((onValue) {})
         .catchError((onError) {});
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => NewGame()));
+    locator<AppNavigator>().navigateToNewGame();
   }
 
   @override

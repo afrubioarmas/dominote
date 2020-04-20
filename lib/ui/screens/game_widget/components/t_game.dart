@@ -2,15 +2,14 @@ import 'package:dominote/ui/screens/gameplay/gameplay.dart';
 import 'package:flutter/material.dart';
 
 class Tgame extends StatelessWidget {
-  String team1;
-  String team2;
-  double height;
+  final String team1;
+  final String team2;
+  final double height;
 
   Tgame({this.team1, this.team2, this.height});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
       onTap: () {
         Navigator.of(context)

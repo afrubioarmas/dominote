@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyPrimaryButton extends StatelessWidget {
-  Widget child;
-  Color color;
-  Function action;
+  final Widget child;
+  final Color color;
+  final Function action;
 
   MyPrimaryButton({this.child, this.color, this.action});
   @override

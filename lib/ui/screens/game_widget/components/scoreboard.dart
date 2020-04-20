@@ -2,14 +2,12 @@ import 'package:dominote/model/Game.dart';
 import 'package:flutter/material.dart';
 
 class Scoreboard extends StatelessWidget {
-  Game game;
+  final Game game;
 
   Scoreboard({this.game});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     return Table(
       border: TableBorder.all(color: Theme.of(context).buttonColor),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
