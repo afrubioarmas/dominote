@@ -1,4 +1,4 @@
-import 'package:dominote/model/Game.dart';
+import 'package:dominote/model/game.dart';
 import 'package:flutter/material.dart';
 
 class Scoreboard extends StatelessWidget {

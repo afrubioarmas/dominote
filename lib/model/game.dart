@@ -1,6 +1,6 @@
-import 'package:dominote/model/Hand.dart';
+import 'package:dominote/model/hand.dart';
 
-import 'Player.dart';
+import 'player.dart';
 
 class Game {
   List<Hand> hands = List();
@@ -28,7 +28,7 @@ class Game {
       for (int j = 0; j < combinations[i].length; j++) {
         playersAux.add(players[combinations[i][j]]);
       }
-      hands.add(Hand.fromPlayers(playersAux, 100));
+      hands.add(Hand.fromPlayersRandom(playersAux, 100));
     }
   }
 }

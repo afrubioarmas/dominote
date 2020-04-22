@@ -3,8 +3,8 @@ import 'package:dominote/controller/misc/service_locator.dart';
 import 'package:dominote/controller/navigation/app_navigator.dart';
 import 'package:dominote/ui/common_components/my_primary_button.dart';
 import 'package:dominote/ui/common_components/my_text_field.dart';
+import 'package:dominote/ui/game/game_screen.dart';
 import 'package:dominote/ui/new_game/new_game_view_model.dart';
-import 'package:dominote/ui/screens/game_widget/game_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,8 +63,7 @@ class NewGameScreen extends StatelessWidget {
                 color: Theme.of(context).buttonColor,
                 child: Text(Language.getStrings("StartGame")),
                 action: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => GameScreen()));
+                  viewModel.onStartGame();
                 },
               )
             : Container(),

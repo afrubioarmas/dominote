@@ -1,7 +1,7 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/controller/navigation/app_navigator.dart';
-import 'package:dominote/model/Game.dart';
-import 'package:dominote/model/Player.dart';
+import 'package:dominote/model/game.dart';
+import 'package:dominote/model/player.dart';
 import 'package:dominote/ui/common_components/my_notification.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +18,10 @@ class NewGameViewModel extends ChangeNotifier {
   List<Player> get players => _players;
 
   void onViewStarted() {
-    _players.add(Player("Andres"));
-    _players.add(Player("Oscar"));
-    _players.add(Player("Dani"));
-    _players.add(Player("Felo"));
+    _players.add(Player("Andres", 1));
+    _players.add(Player("Oscar", 2));
+    _players.add(Player("Dani", 3));
+    _players.add(Player("Felo", 4));
     notifyListeners();
   }
 
@@ -31,8 +31,8 @@ class NewGameViewModel extends ChangeNotifier {
 
   void onPlayerSubmit() {
     if (nameTextController.text.length > 2) {
-      if (players.length < 7) {
-        _players.add(Player(nameTextController.text));
+      if (_players.length < 7) {
+        _players.add(Player(nameTextController.text, _players.length - 1));
         notifyListeners();
         MyNotification.showSuccess(
           subtitle: Language.getStrings("PlayerAdded") +

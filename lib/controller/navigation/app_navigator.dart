@@ -1,6 +1,6 @@
-import 'package:dominote/model/Game.dart';
+import 'package:dominote/model/game.dart';
+import 'package:dominote/ui/game/game_screen.dart';
 import 'package:dominote/ui/new_game/new_game_screen.dart';
-import 'package:dominote/ui/screens/game_widget/game_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'app_routes.dart';
@@ -27,7 +27,7 @@ class AppNavigator {
 
       case AppRoutes.game:
         return MaterialPageRoute(
-            builder: (context) => GameScreen(/*game: game*/));
+            builder: (context) => GameScreen(game: settings.arguments));
 
       default:
         return null;
