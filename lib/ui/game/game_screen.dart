@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'components/t_game.dart';
+import '../t_game/t_game.dart';
 import 'game_view_model.dart';
 
 class GameScreen extends StatelessWidget {
@@ -26,8 +26,7 @@ class GameScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(Language.getStrings("Scoreboard"),
-            style: Theme.of(context).textTheme.title),
+        title: Text(Language.getStrings("Scoreboard"), style: Theme.of(context).textTheme.title),
         centerTitle: true,
       ),
       body: ChangeNotifierProvider<GameViewModel>(
@@ -39,7 +38,7 @@ class GameScreen extends StatelessWidget {
                 children: <Widget>[
                   _buildPlayersLegend(context, viewModel),
                   _buildScoreBoard(viewModel),
-                  _buildTGames(viewModel),
+                  _buildTGames(viewModel, context),
                 ],
               )
             ],
@@ -53,26 +52,24 @@ class GameScreen extends StatelessWidget {
     List<Widget> playersLegend = List<Widget>();
     List<Player> players = viewModel.players;
     for (int i = 0; i < players.length; i++) {
-      playersLegend.add(Text((i + 1).toString() + ": " + players[i].name,
-          style: Theme.of(context).textTheme.subtitle));
+      playersLegend.add(Text((i + 1).toString() + ": " + players[i].name, style: Theme.of(context).textTheme.subtitle));
     }
     return Wrap(spacing: 10, children: playersLegend);
   }
 
-  _buildTGames(GameViewModel viewModel) {
-    List<TGame> tgames = [];
+  _buildTGames(GameViewModel viewModel, BuildContext context) {
+    List<Widget> tgames = [];
     viewModel.game.hands.forEach((hand) {
-      tgames.add(TGame(
-        hand: hand,
+      tgames.add(Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: TGame(
+          hand: hand,
+        ),
       ));
     });
 
     return Container(
-      child: Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 20,
-          runSpacing: 20,
-          children: tgames),
+      child: Wrap(alignment: WrapAlignment.center, spacing: 20, runSpacing: 20, children: tgames),
     );
   }
 

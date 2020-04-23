@@ -1,12 +1,17 @@
-import 'package:dominote/ui/screens/gameplay/add_match.dart';
+import 'package:dominote/model/hand.dart';
+import 'package:dominote/ui/t_game/t_game.dart';
 import 'package:flutter/material.dart';
 
-class Gameplay extends StatefulWidget {
-  @override
-  _GameplayState createState() => _GameplayState();
-}
+import 'add_match.dart';
 
-class _GameplayState extends State<Gameplay> {
+class GameplayScreen extends StatelessWidget {
+  final Hand hand;
+  final double height = 20;
+
+  GameplayScreen({
+    this.hand,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,11 +24,9 @@ class _GameplayState extends State<Gameplay> {
           Expanded(
             child: ListView(
               children: <Widget>[
-                /*Tgame(
-                  height: 30,
-                  team1: "Andres - Dani",
-                  team2: "Oscar - Felo",
-                ),*/
+                TGame(
+                  hand: hand,
+                )
               ],
             ),
           ),

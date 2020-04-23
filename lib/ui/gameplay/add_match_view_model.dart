@@ -2,11 +2,11 @@ import 'package:dominote/controller/navigation/app_navigator.dart';
 import 'package:dominote/model/hand.dart';
 import 'package:flutter/material.dart';
 
-class TGameViewModel extends ChangeNotifier {
+class AddMatchViewModel extends ChangeNotifier {
   final AppNavigator _navigator;
   final Hand _hand;
 
-  TGameViewModel({@required AppNavigator navigator, @required Hand hand})
+  AddMatchViewModel({@required AppNavigator navigator, @required Hand hand})
       : assert(navigator != null),
         assert(hand != null),
         _navigator = navigator,

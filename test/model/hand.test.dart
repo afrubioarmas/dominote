@@ -12,7 +12,8 @@ void main() {
       players.add(Player("Felo", 4));
 
       Hand hand = Hand.fromPlayersRandom(players, 100);
-      expect(hand.matches.length, 10);
+      expect(hand.matchesTeam1.length < 10, true);
+      expect(hand.matchesTeam2.length < 10, true);
     });
   });
 }

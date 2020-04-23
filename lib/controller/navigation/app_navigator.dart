@@ -1,5 +1,7 @@
 import 'package:dominote/model/game.dart';
+import 'package:dominote/model/hand.dart';
 import 'package:dominote/ui/game/game_screen.dart';
+import 'package:dominote/ui/gameplay/gameplay_screen.dart';
 import 'package:dominote/ui/new_game/new_game_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,10 @@ class AppNavigator {
     return _pushRoute(AppRoutes.game, arguments: game);
   }
 
+  Future<void> navigateToGamePlay(Hand hand) {
+    return _pushRoute(AppRoutes.gamePlay, arguments: hand);
+  }
+
   popScreen() {
     navigatorKey.currentState.pop();
   }
@@ -26,23 +32,21 @@ class AppNavigator {
         return MaterialPageRoute(builder: (context) => NewGameScreen());
 
       case AppRoutes.game:
-        return MaterialPageRoute(
-            builder: (context) => GameScreen(game: settings.arguments));
+        return MaterialPageRoute(builder: (context) => GameScreen(game: settings.arguments));
+
+      case AppRoutes.gamePlay:
+        return MaterialPageRoute(builder: (context) => GameplayScreen(hand: settings.arguments));
 
       default:
         return null;
     }
   }
 
-  Future<T> _pushRoute<T>(String routeName,
-      {Object arguments, bool clearStack = false}) {
+  Future<T> _pushRoute<T>(String routeName, {Object arguments, bool clearStack = false}) {
     if (clearStack) {
-      return navigatorKey.currentState.pushNamedAndRemoveUntil<T>(
-          routeName, (route) => false,
-          arguments: arguments);
+      return navigatorKey.currentState.pushNamedAndRemoveUntil<T>(routeName, (route) => false, arguments: arguments);
     } else {
-      return navigatorKey.currentState
-          .pushNamed<T>(routeName, arguments: arguments);
+      return navigatorKey.currentState.pushNamed<T>(routeName, arguments: arguments);
     }
   }
 }
