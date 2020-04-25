@@ -1,5 +1,5 @@
 import 'package:dominote/controller/helpers/language.dart';
-import 'package:dominote/controller/navigation/app_navigator.dart';
+import 'package:dominote/controller/navigation/app_navigator/app_navigator.dart';
 import 'package:dominote/model/game.dart';
 import 'package:dominote/model/player.dart';
 import 'package:dominote/ui/common_components/my_notification.dart';
@@ -35,18 +35,14 @@ class NewGameViewModel extends ChangeNotifier {
         _players.add(Player(nameTextController.text, _players.length - 1));
         notifyListeners();
         MyNotification.showSuccess(
-          subtitle: Language.getStrings("PlayerAdded") +
-              ": " +
-              nameTextController.text,
+          subtitle: Language.getStrings("PlayerAdded") + ": " + nameTextController.text,
         );
         nameTextController.text = "";
       } else {
-        MyNotification.showError(
-            subtitle: Language.getStrings("CantAddMoreThan7Players"));
+        MyNotification.showError(subtitle: Language.getStrings("CantAddMoreThan7Players"));
       }
     } else {
-      MyNotification.showError(
-          subtitle: Language.getStrings("PlayersNameCantBeLess2Characters"));
+      MyNotification.showError(subtitle: Language.getStrings("PlayersNameCantBeLess2Characters"));
     }
   }
 

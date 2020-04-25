@@ -1,5 +1,5 @@
 import 'package:dominote/controller/misc/service_locator.dart';
-import 'package:dominote/controller/navigation/app_navigator.dart';
+import 'package:dominote/controller/navigation/game_navigator/game_navigator.dart';
 import 'package:dominote/model/hand.dart';
 import 'package:dominote/ui/t_game/t_game_view_model.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class TGame extends StatelessWidget {
   TGame({@required this.hand, this.disableTap = false});
 
   TGameViewModel _createViewModel(BuildContext context) {
-    return TGameViewModel(hand: hand, navigator: locator<AppNavigator>());
+    return TGameViewModel(hand: hand, navigator: locator<GameNavigator>());
   }
 
   @override

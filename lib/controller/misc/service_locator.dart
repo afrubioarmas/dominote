@@ -1,4 +1,5 @@
-import 'package:dominote/controller/navigation/app_navigator.dart';
+import 'package:dominote/controller/navigation/app_navigator/app_navigator.dart';
+import 'package:dominote/controller/navigation/game_navigator/game_navigator.dart';
 import 'package:get_it/get_it.dart';
 
 final ServiceLocator locator = ServiceLocator._();
@@ -15,5 +16,6 @@ class ServiceLocator<T> {
     //final sharedPreferences = await SharedPreferences.getInstance();
 
     _getIt.registerSingleton(AppNavigator());
+    _getIt.registerSingleton(GameNavigator());
   }
 }

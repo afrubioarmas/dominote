@@ -1,9 +1,8 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/controller/misc/service_locator.dart';
-import 'package:dominote/controller/navigation/app_navigator.dart';
+import 'package:dominote/controller/navigation/app_navigator/app_navigator.dart';
 import 'package:dominote/ui/common_components/my_primary_button.dart';
 import 'package:dominote/ui/common_components/my_text_field.dart';
-import 'package:dominote/ui/game/game_screen.dart';
 import 'package:dominote/ui/new_game/new_game_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,10 +29,7 @@ class NewGameScreen extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _buildHeadline(context, viewModel),
-                      _buildListSection(context, viewModel)
-                    ],
+                    children: <Widget>[_buildHeadline(context, viewModel), _buildListSection(context, viewModel)],
                   ),
                 ),
               ],
@@ -51,10 +47,7 @@ class NewGameScreen extends StatelessWidget {
           child: viewModel.players.length > 0
               ? Table(
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  columnWidths: {
-                    0: FixedColumnWidth(20),
-                    2: FixedColumnWidth(60)
-                  },
+                  columnWidths: {0: FixedColumnWidth(20), 2: FixedColumnWidth(60)},
                   children: _buildList(context, viewModel))
               : Text(Language.getStrings("NoPlayersAdded")),
         ),
@@ -80,15 +73,13 @@ class NewGameScreen extends StatelessWidget {
             TableCell(
               child: Text(
                 (i + 1).toString() + ". ",
-                style:
-                    Theme.of(context).textTheme.display1.copyWith(fontSize: 18),
+                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 18),
               ),
             ),
             TableCell(
               child: Text(
                 viewModel.players[i].name,
-                style:
-                    Theme.of(context).textTheme.display1.copyWith(fontSize: 18),
+                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 18),
               ),
             ),
             TableCell(

@@ -1,4 +1,4 @@
-import 'package:dominote/controller/navigation/app_navigator.dart';
+import 'package:dominote/controller/navigation/app_navigator/app_navigator.dart';
 import 'package:dominote/model/hand.dart';
 import 'package:flutter/material.dart';
 

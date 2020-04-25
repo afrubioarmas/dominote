@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'controller/helpers/language.dart';
 import 'controller/misc/service_locator.dart';
-import 'controller/navigation/app_navigator.dart';
+import 'controller/navigation/app_navigator/app_navigator.dart';
 
 class MyApp extends StatelessWidget {
   @override
