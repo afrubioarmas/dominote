@@ -6,7 +6,6 @@ import 'add_match.dart';
 
 class GameplayScreen extends StatelessWidget {
   final Hand hand;
-  final double height = 20;
 
   GameplayScreen({
     this.hand,
@@ -19,19 +18,29 @@ class GameplayScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                TGame(
-                  hand: hand,
-                )
-              ],
-            ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(children: <Widget>[
+          ListView(
+            children: <Widget>[
+              TGame(
+                disableTap: true,
+                hand: hand,
+              ),
+              Container(
+                height: 180,
+              )
+            ],
           ),
-          AddMatch()
-        ],
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            bottom: 0,
+            child: AddMatch(
+              hand: hand,
+            ),
+          )
+        ]),
       ),
     );
   }

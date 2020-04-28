@@ -1,12 +1,12 @@
 import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/player.dart';
 import 'package:dominote/ui/game/components/scoreboard.dart';
+import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../t_game/t_game.dart';
-import 'game_view_model.dart';
 
 class GameScreen extends StatelessWidget {
   @override
@@ -54,9 +54,7 @@ class GameScreen extends StatelessWidget {
       ));
     });
 
-    return Container(
-      child: Wrap(alignment: WrapAlignment.center, spacing: 20, runSpacing: 20, children: tgames),
-    );
+    return Wrap(alignment: WrapAlignment.center, spacing: 20, runSpacing: 20, children: tgames);
   }
 
   _buildScoreBoard(GameViewModel viewModel) {

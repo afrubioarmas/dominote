@@ -1,6 +1,7 @@
 import 'package:dominote/controller/misc/service_locator.dart';
 import 'package:dominote/controller/navigation/game_navigator/game_navigator.dart';
 import 'package:dominote/model/hand.dart';
+import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:dominote/ui/t_game/t_game_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,29 +13,31 @@ class TGame extends StatelessWidget {
 
   TGame({@required this.hand, this.disableTap = false});
 
-  TGameViewModel _createViewModel(BuildContext context) {
-    return TGameViewModel(hand: hand, navigator: locator<GameNavigator>());
+  TGameViewModel _createViewModel(BuildContext context, GameViewModel gameViewModel) {
+    return TGameViewModel(hand: hand, gameViewModel: gameViewModel, navigator: locator<GameNavigator>());
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TGameViewModel>(
-      create: (context) => _createViewModel(context),
-      child: Consumer<TGameViewModel>(
-        builder: (context, viewModel, staticChild) => Column(
-          children: <Widget>[
-            InkWell(
-              onTap: () {
-                if (!disableTap) {
-                  viewModel.onTap();
-                }
-              },
-              child: Container(
-                child: _buildTable(context, viewModel),
-                padding: EdgeInsets.all(10),
-              ),
-            )
-          ],
+    return Consumer<GameViewModel>(
+      builder: (context, gameViewModel, staticChild) => ChangeNotifierProvider<TGameViewModel>(
+        create: (context) => _createViewModel(context, gameViewModel),
+        child: Consumer<TGameViewModel>(
+          builder: (context, tGameViewModel, staticChild) => Column(
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  if (!disableTap) {
+                    tGameViewModel.onTap();
+                  }
+                },
+                child: Container(
+                  child: _buildTable(context, tGameViewModel),
+                  padding: EdgeInsets.all(10),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -58,7 +61,7 @@ class TGame extends StatelessWidget {
     int team2count = 0;
     int rowCount = 0;
 
-    while (rowCount < viewModel.hand.matchesTeam1.length && rowCount < viewModel.hand.matchesTeam2.length) {
+    while (rowCount < viewModel.hand.matchesTeam1.length || rowCount < viewModel.hand.matchesTeam2.length) {
       List<TableCell> tableCellsPlays = List<TableCell>();
       if (viewModel.hand.matchesTeam1.length > rowCount) {
         team1count = team1count + viewModel.hand.matchesTeam1[rowCount];

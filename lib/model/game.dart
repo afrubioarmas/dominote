@@ -28,7 +28,7 @@ class Game {
       for (int j = 0; j < combinations[i].length; j++) {
         playersAux.add(players[combinations[i][j]]);
       }
-      hands.add(Hand.fromPlayersRandom(playersAux, 100));
+      hands.add(Hand.fromPlayers(playersAux, 100));
     }
   }
 }

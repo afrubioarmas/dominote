@@ -1,5 +1,4 @@
 import 'package:dominote/controller/misc/service_locator.dart';
-import 'package:dominote/controller/navigation/app_navigator/app_navigator.dart';
 import 'package:dominote/controller/navigation/game_navigator/game_navigator.dart';
 import 'package:dominote/controller/navigation/game_navigator/game_routes.dart';
 import 'package:dominote/model/game.dart';
@@ -14,7 +13,7 @@ class GameSubnavigator extends StatelessWidget {
   const GameSubnavigator({@required this.game}) : assert(game != null);
 
   GameViewModel _createViewModel(BuildContext context) {
-    return GameViewModel(game: game, navigator: locator<AppNavigator>());
+    return GameViewModel(game: game);
   }
 
   @override
