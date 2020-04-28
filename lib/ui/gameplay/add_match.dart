@@ -29,71 +29,80 @@ class AddMatch extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(Language.getStrings("AddPoints"), style: Theme.of(context).textTheme.title),
-                  Container(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Radio(
-                            value: "one",
-                            groupValue: addMatchViewModel.radioValue,
-                            onChanged: (id) {
-                              addMatchViewModel.radioValue = id;
-                            },
-                          ),
-                          Text(addMatchViewModel.players[0].name + " - " + addMatchViewModel.players[1].name),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text(addMatchViewModel.players[2].name + " - " + addMatchViewModel.players[3].name),
-                          Radio(
-                            value: "two",
-                            groupValue: addMatchViewModel.radioValue,
-                            onChanged: (id) {
-                              addMatchViewModel.radioValue = id;
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(Language.getStrings("Points") + ": "),
-                          Container(
-                            padding: EdgeInsets.only(left: 20),
-                            width: 70,
-                            child: TextField(
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              controller: addMatchViewModel.controller,
-                            ),
-                          ),
-                        ],
-                      ),
-                      MyPrimaryButton(
-                        color: Theme.of(context).buttonColor,
-                        child: Icon(Icons.add),
-                        action: () {
-                          addMatchViewModel.addScore();
-                        },
-                      )
-                    ],
-                  ),
+                  _buildHeader(context),
+                  _buildTeamSelection(addMatchViewModel),
+                  _buildScoreAdder(context, addMatchViewModel)
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  _buildHeader(BuildContext context) {
+    return Text(Language.getStrings("AddPoints"), style: Theme.of(context).textTheme.title);
+  }
+
+  _buildTeamSelection(AddMatchViewModel addMatchViewModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Radio(
+              value: "one",
+              groupValue: addMatchViewModel.radioValue,
+              onChanged: (id) {
+                addMatchViewModel.radioValue = id;
+              },
+            ),
+            Text(addMatchViewModel.players[0].name + " - " + addMatchViewModel.players[1].name),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text(addMatchViewModel.players[2].name + " - " + addMatchViewModel.players[3].name),
+            Radio(
+              value: "two",
+              groupValue: addMatchViewModel.radioValue,
+              onChanged: (id) {
+                addMatchViewModel.radioValue = id;
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  _buildScoreAdder(BuildContext context, AddMatchViewModel addMatchViewModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(Language.getStrings("Points") + ": "),
+            Container(
+              padding: EdgeInsets.only(left: 20),
+              width: 70,
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                controller: addMatchViewModel.controller,
+              ),
+            ),
+          ],
+        ),
+        MyPrimaryButton(
+          color: Theme.of(context).buttonColor,
+          child: Icon(Icons.add),
+          action: () {
+            addMatchViewModel.addScore(context);
+          },
+        )
+      ],
     );
   }
 }

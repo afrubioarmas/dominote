@@ -49,6 +49,7 @@ class GameScreen extends StatelessWidget {
       tgames.add(Container(
         width: MediaQuery.of(context).size.width * 0.4,
         child: TGame(
+          preview: true,
           hand: hand,
         ),
       ));

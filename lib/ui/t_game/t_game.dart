@@ -1,6 +1,5 @@
-import 'package:dominote/controller/misc/service_locator.dart';
-import 'package:dominote/controller/navigation/game_navigator/game_navigator.dart';
 import 'package:dominote/model/hand.dart';
+import 'package:dominote/model/player.dart';
 import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:dominote/ui/t_game/t_game_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,13 @@ import 'package:provider/provider.dart';
 
 class TGame extends StatelessWidget {
   final Hand hand;
-  final bool disableTap;
+  final bool preview;
   final double height = 20;
 
-  TGame({@required this.hand, this.disableTap = false});
+  TGame({@required this.hand, this.preview = false});
 
   TGameViewModel _createViewModel(BuildContext context, GameViewModel gameViewModel) {
-    return TGameViewModel(hand: hand, gameViewModel: gameViewModel, navigator: locator<GameNavigator>());
+    return TGameViewModel(hand: hand, gameViewModel: gameViewModel);
   }
 
   @override
@@ -25,21 +24,24 @@ class TGame extends StatelessWidget {
         child: Consumer<TGameViewModel>(
           builder: (context, tGameViewModel, staticChild) => Column(
             children: <Widget>[
-              InkWell(
-                onTap: () {
-                  if (!disableTap) {
-                    tGameViewModel.onTap();
-                  }
-                },
-                child: Container(
-                  child: _buildTable(context, tGameViewModel),
-                  padding: EdgeInsets.all(10),
-                ),
-              )
+              preview
+                  ? InkWell(
+                      onTap: () {
+                        tGameViewModel.onTap();
+                      },
+                      child: _buildContent(context, tGameViewModel))
+                  : _buildContent(context, tGameViewModel)
             ],
           ),
         ),
       ),
+    );
+  }
+
+  _buildContent(BuildContext context, TGameViewModel tGameViewModel) {
+    return Container(
+      child: _buildTable(context, tGameViewModel),
+      padding: EdgeInsets.all(10),
     );
   }
 
@@ -65,14 +67,16 @@ class TGame extends StatelessWidget {
       List<TableCell> tableCellsPlays = List<TableCell>();
       if (viewModel.hand.matchesTeam1.length > rowCount) {
         team1count = team1count + viewModel.hand.matchesTeam1[rowCount];
-        tableCellsPlays.add(_buildTableCellWithScore(viewModel.hand.matchesTeam1[rowCount], team1count));
+        tableCellsPlays.add(_buildTableCellWithScore(
+            viewModel.hand.matchesTeam1[rowCount], team1count, context, viewModel, Team.team1, rowCount));
       } else {
         tableCellsPlays.add(_buildEmptyTableCell());
       }
 
       if (viewModel.hand.matchesTeam2.length > rowCount) {
         team2count = team2count + viewModel.hand.matchesTeam2[rowCount];
-        tableCellsPlays.add(_buildTableCellWithScore(viewModel.hand.matchesTeam2[rowCount], team2count));
+        tableCellsPlays.add(_buildTableCellWithScore(
+            viewModel.hand.matchesTeam2[rowCount], team2count, context, viewModel, Team.team2, rowCount));
       } else {
         tableCellsPlays.add(_buildEmptyTableCell());
       }
@@ -81,15 +85,29 @@ class TGame extends StatelessWidget {
     }
   }
 
-  TableCell _buildTableCellWithScore(int newScore, int count) {
+  TableCell _buildTableCellWithScore(
+      int newScore, int count, BuildContext context, TGameViewModel viewModel, Team team, int index) {
     return TableCell(
-      child: Container(
-          height: height,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[Text(newScore.toString()), Text("-"), Text(count.toString())],
-          )),
+      child: !preview
+          ? InkWell(
+              onLongPress: () {
+                viewModel.showEditingDialog(context, index, team);
+              },
+              child: Container(
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[Text(newScore.toString()), Text("-"), Text(count.toString())],
+                  )),
+            )
+          : Container(
+              height: height,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[Text(newScore.toString()), Text("-"), Text(count.toString())],
+              )),
     );
   }
 
@@ -105,16 +123,23 @@ class TGame extends StatelessWidget {
       child: Container(
           height: height,
           alignment: Alignment.center,
-          child: Text(hand.players[0].number.toString() + " - " + hand.players[1].number.toString())),
+          child: !preview
+              ? Text(_returnNumberAndNameOf(hand.players[0]) + " - " + _returnNumberAndNameOf(hand.players[1]))
+              : Text(hand.players[0].number.toString() + " - " + hand.players[1].number.toString())),
     ));
     tableCells.add(TableCell(
-      child: Container(
-          height: height,
-          alignment: Alignment.center,
-          child: Text(hand.players[2].number.toString() + " - " + hand.players[3].number.toString())),
-    ));
+        child: Container(
+            height: height,
+            alignment: Alignment.center,
+            child: !preview
+                ? Text(_returnNumberAndNameOf(hand.players[2]) + " - " + _returnNumberAndNameOf(hand.players[3]))
+                : Text(hand.players[2].number.toString() + " - " + hand.players[3].number.toString()))));
     return TableRow(
         children: tableCells,
         decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).buttonColor, width: 2))));
+  }
+
+  _returnNumberAndNameOf(Player player) {
+    return player.number.toString() + ". " + player.name.toString();
   }
 }

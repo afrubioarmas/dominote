@@ -1,5 +1,7 @@
+import 'package:dominote/controller/helpers/language.dart';
 import 'package:dominote/model/hand.dart';
 import 'package:dominote/model/player.dart';
+import 'package:dominote/ui/common_components/my_notification.dart';
 import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,7 @@ class AddMatchViewModel extends ChangeNotifier {
 
   TextEditingController controller = TextEditingController();
 
-  String _radioValue;
+  String _radioValue = "";
 
   String get radioValue => _radioValue;
 
@@ -28,13 +30,34 @@ class AddMatchViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addScore() {
-    if (_radioValue == "one") {
-      _hand.matchesTeam1.add(int.parse(controller.text));
-    } else {
-      _hand.matchesTeam2.add(int.parse(controller.text));
+  void addScore(BuildContext context) {
+    try {
+      _validations();
+      if (_radioValue == "one") {
+        _hand.matchesTeam1.add(int.parse(controller.text));
+      } else {
+        _hand.matchesTeam2.add(int.parse(controller.text));
+      }
+      FocusScope.of(context).requestFocus(FocusNode());
+    } catch (error) {
+      MyNotification.showError(subtitle: error);
+    } finally {
+      controller.text = "";
+      _gameViewModel.notifyListeners();
+    }
+  }
+
+  _validations() {
+    if (controller.text == "") {
+      throw (Language.getStrings("EmptyScore"));
     }
 
-    _gameViewModel.notifyListeners();
+    if (int.parse(controller.text) > 100) {
+      throw (Language.getStrings("ScoreMoreThan100"));
+    }
+
+    if (_radioValue == "") {
+      throw (Language.getStrings("NoTeamSelected"));
+    }
   }
 }

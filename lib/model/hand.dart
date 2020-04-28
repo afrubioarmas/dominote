@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:dominote/model/player.dart';
 
+enum Team { team1, team2 }
+
 class Hand {
   List<Player> players;
   List<int> matchesTeam1;

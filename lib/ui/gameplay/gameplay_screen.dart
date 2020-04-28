@@ -25,7 +25,7 @@ class GameplayScreen extends StatelessWidget {
           ListView(
             children: <Widget>[
               TGame(
-                disableTap: true,
+                preview: false,
                 hand: hand,
               ),
               Container(
