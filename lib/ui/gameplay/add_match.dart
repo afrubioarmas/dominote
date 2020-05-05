@@ -41,11 +41,11 @@ class AddMatch extends StatelessWidget {
     );
   }
 
-  _buildHeader(BuildContext context) {
+  Text _buildHeader(BuildContext context) {
     return Text(Language.getStrings("AddPoints"), style: Theme.of(context).textTheme.title);
   }
 
-  _buildTeamSelection(AddMatchViewModel addMatchViewModel) {
+  Row _buildTeamSelection(AddMatchViewModel addMatchViewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -77,7 +77,7 @@ class AddMatch extends StatelessWidget {
     );
   }
 
-  _buildScoreAdder(BuildContext context, AddMatchViewModel addMatchViewModel) {
+  Row _buildScoreAdder(BuildContext context, AddMatchViewModel addMatchViewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

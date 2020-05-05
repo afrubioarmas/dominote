@@ -8,6 +8,7 @@ enum MyNotificationType {
   info,
 }
 
+// ignore: must_be_immutable
 class MyNotification extends StatelessWidget {
   MyNotificationType _type;
   Widget leading;
@@ -15,11 +16,10 @@ class MyNotification extends StatelessWidget {
   String subTitle;
   Widget tailing;
   Function onTap;
-  MyNotification(this._type,
-      {this.tailing, this.subTitle, this.title, this.onTap});
 
-  static _showNotification(
-      MyNotificationType type, String title, String subtitle, Function action) {
+  MyNotification(this._type, {this.tailing, this.subTitle, this.title, this.onTap});
+
+  static _showNotification(MyNotificationType type, String title, String subtitle, Function action) {
     BotToast.showCustomNotification(toastBuilder: (_) {
       return MyNotification(
         type,
@@ -35,13 +35,11 @@ class MyNotification extends StatelessWidget {
   }
 
   static void showSuccess({String subtitle, Function action}) {
-    _showNotification(MyNotificationType.success,
-        Language.getStrings("Success"), subtitle, action);
+    _showNotification(MyNotificationType.success, Language.getStrings("Success"), subtitle, action);
   }
 
   static void showError({String subtitle, Function action}) {
-    _showNotification(MyNotificationType.error, Language.getStrings("Error"),
-        subtitle, action);
+    _showNotification(MyNotificationType.error, Language.getStrings("Error"), subtitle, action);
   }
 
   @override
@@ -101,8 +99,7 @@ class MyNotification extends StatelessWidget {
               Expanded(
                 child: Card(
                   elevation: 6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   color: Theme.of(context).dialogBackgroundColor,
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
@@ -120,8 +117,7 @@ class MyNotification extends StatelessWidget {
                               margin: EdgeInsets.symmetric(vertical: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Text(
                                     title,

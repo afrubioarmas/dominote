@@ -5,11 +5,11 @@ import 'package:dominote/ui/common_components/my_notification.dart';
 import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:flutter/material.dart';
 
-class AddMatchViewModel extends ChangeNotifier {
+class SelectOpenerViewModel extends ChangeNotifier {
   final Hand _hand;
   final GameViewModel _gameViewModel;
 
-  AddMatchViewModel({@required GameViewModel gameViewModel, @required Hand hand})
+  SelectOpenerViewModel({@required GameViewModel gameViewModel, @required Hand hand})
       : assert(hand != null),
         assert(gameViewModel != null),
         _hand = hand,

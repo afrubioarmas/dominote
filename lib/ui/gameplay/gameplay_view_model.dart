@@ -9,4 +9,12 @@ class GamePlayViewModel extends ChangeNotifier {
         _hand = hand;
 
   Hand get hand => _hand;
+
+  bool shouldRenderAddMatch() {
+    return hand.handFinished();
+  }
+
+  bool shouldRenderSelectOpener() {
+    return hand.indexFirstOpening == null;
+  }
 }

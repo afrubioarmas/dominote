@@ -38,7 +38,7 @@ class TGame extends StatelessWidget {
     );
   }
 
-  _buildContent(BuildContext context, TGameViewModel tGameViewModel) {
+  Container _buildContent(BuildContext context, TGameViewModel tGameViewModel) {
     return Container(
       child: _buildTable(context, tGameViewModel),
       padding: EdgeInsets.all(10),
@@ -58,7 +58,7 @@ class TGame extends StatelessWidget {
         children: tableRows);
   }
 
-  _buildMatches(BuildContext context, List<TableRow> tableRows, TGameViewModel viewModel) {
+  void _buildMatches(BuildContext context, List<TableRow> tableRows, TGameViewModel viewModel) {
     int team1count = 0;
     int team2count = 0;
     int rowCount = 0;
@@ -120,26 +120,54 @@ class TGame extends StatelessWidget {
   TableRow _buildHeader(BuildContext context, TGameViewModel viewModel) {
     List<TableCell> tableCells = List<TableCell>();
     tableCells.add(TableCell(
-      child: Container(
-          height: height,
-          alignment: Alignment.center,
-          child: !preview
-              ? Text(_returnNumberAndNameOf(hand.players[0]) + " - " + _returnNumberAndNameOf(hand.players[1]))
-              : Text(hand.players[0].number.toString() + " - " + hand.players[1].number.toString())),
-    ));
+        child: Container(
+            height: height,
+            alignment: Alignment.center,
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                      text: _returnNumberAndNameOf(hand.players[0]),
+                      style: viewModel.hand.indexFirstOpening != null && viewModel.hand.indexFirstOpening == 0
+                          ? TextStyle(color: Theme.of(context).buttonColor, fontWeight: FontWeight.bold)
+                          : TextStyle(color: Theme.of(context).textTheme.body1.color)),
+                  TextSpan(text: " - "),
+                  TextSpan(
+                      text: _returnNumberAndNameOf(hand.players[1]),
+                      style: viewModel.hand.indexFirstOpening != null && viewModel.hand.indexFirstOpening == 1
+                          ? TextStyle(color: Theme.of(context).buttonColor, fontWeight: FontWeight.bold)
+                          : TextStyle(color: Theme.of(context).textTheme.body1.color)),
+                ],
+              ),
+            ))));
     tableCells.add(TableCell(
         child: Container(
             height: height,
             alignment: Alignment.center,
-            child: !preview
-                ? Text(_returnNumberAndNameOf(hand.players[2]) + " - " + _returnNumberAndNameOf(hand.players[3]))
-                : Text(hand.players[2].number.toString() + " - " + hand.players[3].number.toString()))));
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                      text: _returnNumberAndNameOf(hand.players[2]),
+                      style: viewModel.hand.indexFirstOpening != null && viewModel.hand.indexFirstOpening == 2
+                          ? TextStyle(color: Theme.of(context).buttonColor, fontWeight: FontWeight.bold)
+                          : TextStyle(color: Theme.of(context).textTheme.body1.color)),
+                  TextSpan(text: " - "),
+                  TextSpan(
+                      text: _returnNumberAndNameOf(hand.players[3]),
+                      style: viewModel.hand.indexFirstOpening != null && viewModel.hand.indexFirstOpening == 3
+                          ? TextStyle(color: Theme.of(context).buttonColor, fontWeight: FontWeight.bold)
+                          : TextStyle(color: Theme.of(context).textTheme.body1.color)),
+                ],
+              ),
+            ))));
+
     return TableRow(
         children: tableCells,
         decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).buttonColor, width: 2))));
   }
 
-  _returnNumberAndNameOf(Player player) {
-    return player.number.toString() + ". " + player.name.toString();
+  String _returnNumberAndNameOf(Player player) {
+    return !preview ? player.number.toString() + ". " + player.name.toString() : player.number.toString();
   }
 }

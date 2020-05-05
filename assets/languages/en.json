@@ -19,5 +19,7 @@
   "NoTeamSelected": "Select a team to add score",
   "EditingScore": "Editing score",
   "ScoreEdited": "Score edited",
-  "ScoreDeleted": "Score deleted"
+  "ScoreDeleted": "Score deleted",
+  "TotalScore": "Total Score",
+  "SelectOpener": "Select Opener:"
 }
