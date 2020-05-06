@@ -112,26 +112,28 @@ class NewGameScreen extends StatelessWidget {
             )),
         Container(
           padding: EdgeInsets.only(top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(
-                width: 200,
-                height: 80,
-                child: MyTextField(
-                    hint: Language.getStrings("EnterPlayerName"),
-                    label: Language.getStrings("Name"),
-                    controller: viewModel.nameTextController),
-              ),
-              MyPrimaryButton(
-                child: Text(Language.getStrings("Add")),
-                color: Theme.of(context).buttonColor,
-                action: () {
-                  viewModel.onPlayerSubmit();
-                },
-              ),
-            ],
-          ),
+          child: viewModel.players.length < 5
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 200,
+                      height: 80,
+                      child: MyTextField(
+                          hint: Language.getStrings("EnterPlayerName"),
+                          label: Language.getStrings("Name"),
+                          controller: viewModel.nameTextController),
+                    ),
+                    MyPrimaryButton(
+                      child: Text(Language.getStrings("Add")),
+                      color: Theme.of(context).buttonColor,
+                      action: () {
+                        viewModel.onPlayerSubmit();
+                      },
+                    ),
+                  ],
+                )
+              : Container(),
         ),
       ],
     );
