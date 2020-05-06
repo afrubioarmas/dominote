@@ -11,7 +11,12 @@ class Hand {
   int scoreToWin;
   int indexFirstOpening;
 
-  Hand({this.players, this.matchesTeam1, this.matchesTeam2, this.scoreToWin, this.indexFirstOpening});
+  Hand(
+      {this.players,
+      this.matchesTeam1,
+      this.matchesTeam2,
+      this.scoreToWin,
+      this.indexFirstOpening});
 
   Hand.fromPlayers(List<Player> players, int scoreToWin) {
     this.players = players;
@@ -43,11 +48,13 @@ class Hand {
   }
 
   bool _containTeamOnByNumberTeam1(int x, int y) {
-    return (players[0].number == x && players[1].number == y) || (players[0].number == y && players[1].number == x);
+    return (players[0].number == x && players[1].number == y) ||
+        (players[0].number == y && players[1].number == x);
   }
 
   bool _containTeamOnByNumberTeam2(int x, int y) {
-    return (players[2].number == x && players[3].number == y) || (players[2].number == y && players[3].number == x);
+    return (players[2].number == x && players[3].number == y) ||
+        (players[2].number == y && players[3].number == x);
   }
 
   int getTeamScoreByNumber(int x, int y) {
@@ -87,13 +94,14 @@ class Hand {
   }
 
   bool handFinished() {
-    return !(getTeamScoreByTeam(Team.team1) >= scoreToWin || getTeamScoreByTeam(Team.team2) >= scoreToWin);
+    return !(getTeamScoreByTeam(Team.team1) >= scoreToWin ||
+        getTeamScoreByTeam(Team.team2) >= scoreToWin);
   }
 
   int getTeammateNumber(int x) {
     for (int i = 0; i < players.length; i++) {
-      if (containsTeamByNumber(x, i + 1)) {
-        return i + 1;
+      if (containsTeamByNumber(x, players[i].number)) {
+        return players[i].number;
       }
     }
     return null;

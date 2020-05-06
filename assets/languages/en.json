@@ -21,5 +21,6 @@
   "ScoreEdited": "Score edited",
   "ScoreDeleted": "Score deleted",
   "TotalScore": "Total Score",
-  "SelectOpener": "Select Opener:"
+  "SelectFirstOpener": "Select first opener:",
+  "NoFirstOpenerSelected": "No first opener selected."
 }

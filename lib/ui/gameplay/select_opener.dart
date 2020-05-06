@@ -3,6 +3,7 @@ import 'package:dominote/model/hand.dart';
 import 'package:dominote/ui/common_components/my_primary_button.dart';
 import 'package:dominote/ui/game/game_view_model.dart';
 import 'package:dominote/ui/gameplay/select_opener_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,8 @@ class SelectOpener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<GameViewModel>(
-      builder: (context, gameViewModel, staticChild) => ChangeNotifierProvider<SelectOpenerViewModel>(
+      builder: (context, gameViewModel, staticChild) =>
+          ChangeNotifierProvider<SelectOpenerViewModel>(
         create: (context) => _createViewModel(context, gameViewModel),
         child: Consumer<SelectOpenerViewModel>(
           builder: (context, selectOpenerViewModel, staticChild) => Container(
@@ -30,7 +32,12 @@ class SelectOpener extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(context),
-                  _buildOpenerSelection(selectOpenerViewModel),
+                  Row(
+                    children: <Widget>[
+                      _buildOpenerSelection(selectOpenerViewModel),
+                      _buildButton(context, selectOpenerViewModel)
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -40,105 +47,85 @@ class SelectOpener extends StatelessWidget {
     );
   }
 
-  Text _buildHeader(BuildContext context) {
-    return Text(Language.getStrings("SelectOpener"), style: Theme.of(context).textTheme.title);
-  }
-
-  Row _buildOpenerSelection(SelectOpenerViewModel selectOpenerViewModel) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Radio(
-                      value: "one",
-                      groupValue: selectOpenerViewModel.radioValue,
-                      onChanged: (id) {
-                        selectOpenerViewModel.radioValue = id;
-                      },
-                    ),
-                    Text(selectOpenerViewModel.players[0].name),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(selectOpenerViewModel.players[1].name),
-                    Radio(
-                      value: "two",
-                      groupValue: selectOpenerViewModel.radioValue,
-                      onChanged: (id) {
-                        selectOpenerViewModel.radioValue = id;
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Radio(
-                      value: "one",
-                      groupValue: selectOpenerViewModel.radioValue,
-                      onChanged: (id) {
-                        selectOpenerViewModel.radioValue = id;
-                      },
-                    ),
-                    Text(selectOpenerViewModel.players[0].name),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(selectOpenerViewModel.players[1].name),
-                    Radio(
-                      value: "two",
-                      groupValue: selectOpenerViewModel.radioValue,
-                      onChanged: (id) {
-                        selectOpenerViewModel.radioValue = id;
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child:
+          Text(Language.getStrings("SelectFirstOpener"), style: Theme.of(context).textTheme.title),
     );
   }
 
-  Row _buildButton(BuildContext context, SelectOpenerViewModel selectOpenerViewModel) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(Language.getStrings("Points") + ": "),
-            Container(
-              padding: EdgeInsets.only(left: 20),
-              width: 70,
-              child: TextField(
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                controller: selectOpenerViewModel.controller,
-              ),
-            ),
-          ],
-        ),
-        MyPrimaryButton(
+  Widget _buildOpenerSelection(SelectOpenerViewModel selectOpenerViewModel) {
+    return Expanded(
+      flex: 2,
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              _buildSelectorLeft(selectOpenerViewModel, 0),
+              _buildSelectorRight(selectOpenerViewModel, 1),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              _buildSelectorLeft(selectOpenerViewModel, 2),
+              _buildSelectorRight(selectOpenerViewModel, 3),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSelectorLeft(SelectOpenerViewModel selectOpenerViewModel, int index) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Radio(
+            value: index.toString(),
+            groupValue: selectOpenerViewModel.radioValue,
+            onChanged: (id) {
+              selectOpenerViewModel.radioValue = id;
+            },
+          ),
+          Text(selectOpenerViewModel.players[index].name),
+        ],
+      ),
+    );
+  }
+
+  Expanded _buildSelectorRight(SelectOpenerViewModel selectOpenerViewModel, int index) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Text(selectOpenerViewModel.players[index].name),
+          Radio(
+            value: index.toString(),
+            groupValue: selectOpenerViewModel.radioValue,
+            onChanged: (id) {
+              selectOpenerViewModel.radioValue = id;
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, SelectOpenerViewModel selectOpenerViewModel) {
+    return Expanded(
+      flex: 1,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: MyPrimaryButton(
           color: Theme.of(context).buttonColor,
-          child: Icon(Icons.add),
+          child: Icon(Icons.check),
           action: () {
-            selectOpenerViewModel.addScore(context);
+            selectOpenerViewModel.submitOpener(context);
           },
-        )
-      ],
+        ),
+      ),
     );
   }
 }

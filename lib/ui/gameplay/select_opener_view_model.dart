@@ -30,14 +30,10 @@ class SelectOpenerViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addScore(BuildContext context) {
+  void submitOpener(BuildContext context) {
     try {
       _validations();
-      if (_radioValue == "one") {
-        _hand.addMatch(int.parse(controller.text), Team.team1);
-      } else {
-        _hand.addMatch(int.parse(controller.text), Team.team2);
-      }
+      _hand.indexFirstOpening = int.parse(_radioValue);
       FocusScope.of(context).requestFocus(FocusNode());
     } catch (error) {
       MyNotification.showError(subtitle: error);
@@ -48,16 +44,8 @@ class SelectOpenerViewModel extends ChangeNotifier {
   }
 
   _validations() {
-    if (controller.text == "") {
-      throw (Language.getStrings("EmptyScore"));
-    }
-
-    if (int.parse(controller.text) > 100) {
-      throw (Language.getStrings("ScoreMoreThan100"));
-    }
-
     if (_radioValue == "") {
-      throw (Language.getStrings("NoTeamSelected"));
+      throw (Language.getStrings("NoFirstOpenerSelected"));
     }
   }
 }

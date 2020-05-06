@@ -21,7 +21,7 @@ class NewGameScreen extends StatelessWidget {
       ),
       body: Container(
         child: ChangeNotifierProvider<NewGameViewModel>(
-          create: (context) => _createViewModel(context)..onViewStarted(),
+          create: (context) => _createViewModel(context),
           child: Consumer<NewGameViewModel>(
             builder: (context, viewModel, staticChild) => ListView(
               children: <Widget>[
@@ -29,7 +29,10 @@ class NewGameScreen extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[_buildHeadline(context, viewModel), _buildListSection(context, viewModel)],
+                    children: <Widget>[
+                      _buildHeadline(context, viewModel),
+                      _buildListSection(context, viewModel)
+                    ],
                   ),
                 ),
               ],

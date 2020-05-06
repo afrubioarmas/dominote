@@ -17,22 +17,14 @@ class NewGameViewModel extends ChangeNotifier {
 
   List<Player> get players => _players;
 
-  void onViewStarted() {
-    _players.add(Player("Andres", 1));
-    _players.add(Player("Oscar", 2));
-    _players.add(Player("Dani", 3));
-    _players.add(Player("Felo", 4));
-    notifyListeners();
-  }
-
   void onStartGame() {
     _navigator.navigateToGame(Game(_players));
   }
 
   void onPlayerSubmit() {
     if (nameTextController.text.length > 2) {
-      if (_players.length < 7) {
-        _players.add(Player(nameTextController.text, _players.length - 1));
+      if (_players.length < 6) {
+        _players.add(Player(nameTextController.text, _players.length + 1));
         notifyListeners();
         MyNotification.showSuccess(
           subtitle: Language.getStrings("PlayerAdded") + ": " + nameTextController.text,

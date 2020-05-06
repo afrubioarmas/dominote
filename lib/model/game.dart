@@ -13,6 +13,9 @@ class Game {
       case 4:
         createHandsFor4();
         break;
+      case 5:
+        createHandsFor5();
+        break;
       default:
     }
   }
@@ -22,6 +25,23 @@ class Game {
       [0, 1, 2, 3],
       [0, 2, 1, 3],
       [0, 3, 1, 2]
+    ];
+    for (int i = 0; i < combinations.length; i++) {
+      List<Player> playersAux = List<Player>();
+      for (int j = 0; j < combinations[i].length; j++) {
+        playersAux.add(players[combinations[i][j]]);
+      }
+      hands.add(Hand.fromPlayers(playersAux, 100));
+    }
+  }
+
+  createHandsFor5() {
+    var combinations = [
+      [0, 1, 2, 4],
+      [0, 2, 3, 4],
+      [0, 3, 1, 2],
+      [0, 4, 1, 3],
+      [1, 4, 2, 3]
     ];
     for (int i = 0; i < combinations.length; i++) {
       List<Player> playersAux = List<Player>();
